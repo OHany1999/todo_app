@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   @override
@@ -7,12 +8,12 @@ class AddTaskBottomSheet extends StatefulWidget {
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   @override
+  DateTime selectedDate = DateTime.now();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
 
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -35,8 +36,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 children: [
                   TextFormField(
                     controller: titleController,
-                    validator: (text){
-                      if(text!.isEmpty && text != null ){
+                    validator: (text) {
+                      if (text!.isEmpty && text != null) {
                         return 'Title is empty';
                       }
                       return null;
@@ -59,8 +60,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   TextFormField(
                     maxLines: 4,
                     controller: descriptionController,
-                    validator: (text){
-                      if(text!.isEmpty && text != null ){
+                    validator: (text) {
+                      if (text!.isEmpty && text != null) {
                         return 'Description is empty';
                       }
                       return null;
@@ -93,26 +94,33 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             SizedBox(
               height: 10,
             ),
-            Text(
-              '25/5/2022',
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1
-                  ?.copyWith(color: Colors.black, fontSize: 20),
+            InkWell(
+              onTap: (){
+                showDate();
+              },
+              child: Text(
+                '${DateFormat('EEEE, MMM d, yyyy').format(selectedDate)}',
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(color: Colors.black, fontSize: 20),
+              ),
             ),
             SizedBox(
               height: 10,
             ),
             ElevatedButton(
               style: ButtonStyle(
-                textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(fontSize: 22),),
+                textStyle: MaterialStateProperty.all<TextStyle>(
+                  TextStyle(fontSize: 22),
+                ),
                 padding: MaterialStateProperty.all<EdgeInsets>(
                   EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 ),
               ),
               onPressed: () {
-                if(formkey.currentState!.validate()){
+                if (formkey.currentState!.validate()) {
                   Navigator.pop(context);
                 }
               },
@@ -122,5 +130,23 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         ),
       ),
     );
+  }
+
+  void showDate() async {
+    DateTime? chosenDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(
+        Duration(days: 36500),
+      ),
+    );
+    if(chosenDate == null){
+      return;
+    }
+    selectedDate = chosenDate;
+    setState(() {
+
+    });
   }
 }
