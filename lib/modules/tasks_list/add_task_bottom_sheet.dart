@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/models/task.dart';
+import 'package:todo_app/shared/network/local/firebase_utils.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   @override
@@ -95,7 +97,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               height: 10,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 showDate();
               },
               child: Text(
@@ -121,7 +123,17 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               ),
               onPressed: () {
                 if (formkey.currentState!.validate()) {
+                  addTaskToFireStore(
+                    Task(
+                      title: titleController.text,
+                      description: descriptionController.text,
+                      date: selectedDate.microsecondsSinceEpoch,
+                    ),
+                  );
                   Navigator.pop(context);
+                  setState(() {
+
+                  });
                 }
               },
               child: Text('Add Task'),
@@ -141,12 +153,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         Duration(days: 36500),
       ),
     );
-    if(chosenDate == null){
+    if (chosenDate == null) {
       return;
     }
     selectedDate = chosenDate;
-    setState(() {
-
-    });
+    setState(() {});
   }
 }
