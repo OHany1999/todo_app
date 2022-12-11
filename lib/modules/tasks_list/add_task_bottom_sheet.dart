@@ -1,6 +1,9 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/models/task.dart';
+import 'package:todo_app/shared/components/ui_utils.dart';
 import 'package:todo_app/shared/network/local/firebase_utils.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
@@ -123,16 +126,23 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               ),
               onPressed: () {
                 if (formkey.currentState!.validate()) {
+                  showLoading('Loading.......', context);
                   addTaskToFireStore(
                     Task(
                       title: titleController.text,
                       description: descriptionController.text,
-                      date: selectedDate.microsecondsSinceEpoch,
+                      date: DateUtils.dateOnly(selectedDate)
+                          .microsecondsSinceEpoch,
                     ),
-                  );
-                  Navigator.pop(context);
-                  setState(() {
+                  ).then((value){
+                    hideLoading(context);
+                    showMessage('Task Added Successfully', context, 'Ok', () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    });
 
+                  }).catchError((error) {
+                    print(error);
                   });
                 }
               },
@@ -156,6 +166,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     if (chosenDate == null) {
       return;
     }
+    // date only بتخليه ياخد التاريخ بس مايخدش الوقت معاه كمان عشان ده بيعمل مشاكل في الداتا بتاعت الfirebase
     selectedDate = chosenDate;
     setState(() {});
   }
