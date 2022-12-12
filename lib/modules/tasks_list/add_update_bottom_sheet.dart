@@ -6,12 +6,14 @@ import 'package:todo_app/models/task.dart';
 import 'package:todo_app/shared/components/ui_utils.dart';
 import 'package:todo_app/shared/network/local/firebase_utils.dart';
 
-class AddTaskBottomSheet extends StatefulWidget {
+class UpdateBottomSheet extends StatefulWidget {
   @override
-  State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
+  State<UpdateBottomSheet> createState() => _UpdateBottomSheetState();
+  String id;
+  UpdateBottomSheet(this.id);
 }
 
-class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
+class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
   @override
   DateTime selectedDate = DateTime.now();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
@@ -26,7 +28,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Add new Task',
+              'Update Task',
               style: Theme.of(context).textTheme.headline1?.copyWith(
                     color: Colors.black,
                   ),
@@ -127,31 +129,32 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               onPressed: () {
                 if (formkey.currentState!.validate()) {
                   showMessage(
-                      'Are you sure ?',
-                      context,
-                      'Ok',
-                        (){
-                        addTaskToFireStore(
-                            Task(
-                            title: titleController.text
-                            , description: descriptionController.text,
-                            date: DateUtils.dateOnly(selectedDate).microsecondsSinceEpoch,
-                            )
-                        ).then((value) {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                        }).catchError((error){
-                          print(error);
-                        });
-                        },
-                    negBtn: 'Cancel',
-                    negAction: (){
+                    'Are you sure about update',
+                    context,
+                    'Ok',
+                    () {
+                      UpdateTaskFromFireStore(
+                              Task(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  date: DateUtils.dateOnly(selectedDate)
+                                      .microsecondsSinceEpoch),
+                              widget.id)
+                          .then((value) {
                         Navigator.pop(context);
+                        Navigator.pop(context);
+                      }).catchError((error) {
+                        print(error);
+                      });
+                    },
+                    negBtn: 'Cancel',
+                    negAction: () {
+                      Navigator.pop(context);
                     },
                   );
                 }
               },
-              child: Text('Add Task'),
+              child: Text('update'),
             ),
           ],
         ),

@@ -29,9 +29,23 @@ Future<void> addTaskToFireStore(Task task) {
   return docRef.set(task);
 }
 
-Future<QuerySnapshot<Task>> getDataFromFireStore(DateTime dateTime) {
+Stream<QuerySnapshot<Task>> getDataFromFireStore(DateTime dateTime) {
   var data = getTaskCollection()
-      .where('date', isEqualTo: DateUtils.dateOnly(dateTime).microsecondsSinceEpoch)
-      .get();
+      .where('date',
+          isEqualTo: DateUtils.dateOnly(dateTime).microsecondsSinceEpoch)
+      .snapshots();
   return data;
+}
+
+Future<void> DeleteTaskFromFireStore(String id) {
+// امسح الdoc الي id بتاعه كذا
+  return getTaskCollection().doc(id).delete();
+}
+
+Future<void> UpdateTaskFromFireStore(Task task, String id) {
+// امسح الdoc الي id بتاعه كذا
+  String oldId = '';
+  var docRef = getTaskCollection().doc(id);
+  task.id = docRef.id;
+  return getTaskCollection().doc(id).update(task.toJson());
 }

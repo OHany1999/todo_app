@@ -48,8 +48,8 @@ class _TasksListState extends State<TasksList> {
               height: 10.0,
             ),
             Expanded(
-              child: FutureBuilder<QuerySnapshot<Task>>(
-                future: getDataFromFireStore(pro.dateTime),
+              child: StreamBuilder<QuerySnapshot<Task>>(
+                stream: getDataFromFireStore(pro.dateTime),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -59,8 +59,7 @@ class _TasksListState extends State<TasksList> {
                       child: (Text('Somethis went wrong')),
                     );
                   }
-                  List<Task> taskData =
-                      snapshot.data!.docs.map((e) => e.data()).toList() ?? [];
+                  List<Task> taskData = snapshot.data!.docs.map((e) => e.data()).toList();
                   return ListView.builder(
                     itemBuilder: (context, index) => TaskItem(taskData[index]),
                     itemCount: taskData.length,
