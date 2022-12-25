@@ -1,12 +1,12 @@
 // ignore_for_file: use_key_in_widget_constructors
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/layout/layout.dart';
 import 'package:todo_app/shared/provider/settingsProvider.dart';
 import 'package:todo_app/shared/styles/my_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 void main()async{
@@ -27,6 +27,17 @@ class MyApp extends StatelessWidget {
     var provider = Provider.of<SettingProvider>(context);
 
     return MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'),
+        Locale('ar'),
+      ],
+      locale: Locale(provider.language),
       initialRoute: HomeLayout.routeName,
       routes: {
         HomeLayout.routeName :(context)=> HomeLayout(),

@@ -9,4 +9,10 @@ void ChangeMode(ThemeMode theme){
   notifyListeners();
 }
 
+String language= 'en';
+void ChangeLanguage(String lang){
+  language = lang;
+  notifyListeners();
+}
+
 }

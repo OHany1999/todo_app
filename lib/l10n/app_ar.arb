@@ -1,0 +1,19 @@
+{
+    "todoApp": "مهام",
+    "done": "!تم",
+    "theme": "مود",
+    "light": "فاتح",
+    "dark": "غامق",
+    "language": "اللغة",
+    "english": "الانجليزية",
+    "arabic": "العربية",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "addNewTask": "اضافة مهام",
+    "title": "العنوان",
+    "description": "التفاصيل",
+    "selectDate": "اختر اليوم",
+    "addTask": "اضافة",
+    "updateTask": "تعديل المهام",
+    "update": "تعديل"
+}

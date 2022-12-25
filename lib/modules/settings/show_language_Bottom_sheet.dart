@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/shared/provider/settingsProvider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ThemeBottomSheet extends StatelessWidget {
-
+class LanguageBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<SettingProvider>(context);
@@ -15,41 +14,46 @@ class ThemeBottomSheet extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              provider.ChangeMode(ThemeMode.light);
+              provider.ChangeLanguage('en');
               Navigator.pop(context);
             },
-            child: themeItem(context, AppLocalizations.of(context)!.light,provider.themeMode == ThemeMode.light ? true:false),
+            child: themeItem(
+              context,
+              AppLocalizations.of(context)!.english,
+              provider.language == 'en' ? true : false,
+            ),
           ),
           SizedBox(
             height: 25,
           ),
           InkWell(
-            onTap: (){
-              provider.ChangeMode(ThemeMode.dark);
+            onTap: () {
+              provider.ChangeLanguage('ar');
               Navigator.pop(context);
             },
-            child: themeItem(context, AppLocalizations.of(context)!.dark,provider.themeMode ==ThemeMode.dark?true:false),
+            child: themeItem(
+              context,
+              AppLocalizations.of(context)!.arabic,
+              provider.language == 'ar' ? true : false,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget themeItem(BuildContext context, String text, bool isSelected) =>
-      Row(
+  Widget themeItem(BuildContext context, String text, bool isSelected) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             text,
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                color: isSelected == true?
-                Colors.blue:Colors.grey,
-            ),
+                  color: isSelected ? Colors.blue : Colors.grey,
+                ),
           ),
           Icon(
-              Icons.done,
-            color: isSelected == true?
-            Colors.blue:Colors.grey,
+            Icons.done,
+            color: isSelected ? Colors.blue : Colors.grey,
           ),
         ],
       );

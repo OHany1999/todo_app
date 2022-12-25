@@ -3,8 +3,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_app/modules/tasks_list/add_update_bottom_sheet.dart';
 import 'package:todo_app/shared/network/local/firebase_utils.dart';
 import 'package:todo_app/shared/styles/colors.dart';
-
 import '../../models/task.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskItem extends StatelessWidget {
   Task task;
@@ -23,7 +23,7 @@ class TaskItem extends StatelessWidget {
             },
             icon: Icons.delete,
             backgroundColor: Colors.red,
-            label: 'Delete',
+            label: AppLocalizations.of(context)!.delete,
             borderRadius: BorderRadius.circular(12),
           ),
           if (task.isDone != true)
@@ -33,7 +33,7 @@ class TaskItem extends StatelessWidget {
               },
               icon: Icons.edit,
               backgroundColor: Colors.blue,
-              label: 'Edit',
+              label: AppLocalizations.of(context)!.edit,
               borderRadius: BorderRadius.circular(12),
             ),
         ],
@@ -94,7 +94,7 @@ class TaskItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Done!',
+            AppLocalizations.of(context)!.done,
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,

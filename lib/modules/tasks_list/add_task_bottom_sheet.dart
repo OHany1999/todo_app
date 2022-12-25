@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/shared/components/ui_utils.dart';
 import 'package:todo_app/shared/network/local/firebase_utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Add new Task',
+              AppLocalizations.of(context)!.addNewTask,
               style: Theme.of(context).textTheme.headline1?.copyWith(
                     color: Colors.black,
                   ),
@@ -40,7 +41,9 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               child: Column(
                 children: [
                   TextFormField(
-                    style: TextStyle(color: Colors.blue,),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
                     controller: titleController,
                     validator: (text) {
                       if (text!.isEmpty && text != null) {
@@ -50,7 +53,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     },
                     decoration: InputDecoration(
                       label: Text(
-                        'Title',
+                        AppLocalizations.of(context)!.title,
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -64,7 +67,9 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     height: 10.0,
                   ),
                   TextFormField(
-                    style: TextStyle(color: Colors.blue,),
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
                     maxLines: 4,
                     controller: descriptionController,
                     validator: (text) {
@@ -75,7 +80,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     },
                     decoration: InputDecoration(
                       label: Text(
-                        'Description',
+                        AppLocalizations.of(context)!.description,
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -92,7 +97,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               height: 5,
             ),
             Text(
-              'Select Date',
+              AppLocalizations.of(context)!.selectDate,
               style: Theme.of(context)
                   .textTheme
                   .subtitle1
@@ -129,31 +134,32 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               onPressed: () {
                 if (formkey.currentState!.validate()) {
                   showMessage(
-                      'Are you sure ?',
-                      context,
-                      'Ok',
-                        (){
-                        addTaskToFireStore(
-                            Task(
-                            title: titleController.text
-                            , description: descriptionController.text,
-                            date: DateUtils.dateOnly(selectedDate).microsecondsSinceEpoch,
-                            )
-                        ).then((value) {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                        }).catchError((error){
-                          print(error);
-                        });
-                        },
-                    negBtn: 'Cancel',
-                    negAction: (){
+                    'Are you sure ?',
+                    context,
+                    'Ok',
+                    () {
+                      addTaskToFireStore(Task(
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        date: DateUtils.dateOnly(selectedDate)
+                            .microsecondsSinceEpoch,
+                      )).then((value) {
                         Navigator.pop(context);
+                        Navigator.pop(context);
+                      }).catchError((error) {
+                        print(error);
+                      });
+                    },
+                    negBtn: 'Cancel',
+                    negAction: () {
+                      Navigator.pop(context);
                     },
                   );
                 }
               },
-              child: Text('Add Task'),
+              child: Text(
+                AppLocalizations.of(context)!.addTask,
+              ),
             ),
           ],
         ),

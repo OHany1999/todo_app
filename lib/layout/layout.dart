@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/modules/settings/settingsScreen.dart';
 import 'package:todo_app/modules/tasks_list/tasks_list.dart';
 import 'package:todo_app/shared/styles/colors.dart';
-
 import '../modules/tasks_list/add_task_bottom_sheet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {
   static const String routeName = 'home';
@@ -26,7 +26,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TodoApp',style: Theme.of(context).textTheme.subtitle1,),
+        title: Text(AppLocalizations.of(context)!.todoApp,style: Theme.of(context).textTheme.subtitle1,),
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.onPrimary,

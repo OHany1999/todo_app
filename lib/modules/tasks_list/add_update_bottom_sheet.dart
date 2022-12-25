@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/shared/components/ui_utils.dart';
 import 'package:todo_app/shared/network/local/firebase_utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateBottomSheet extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Update Task',
+              AppLocalizations.of(context)!.updateTask,
               style: Theme.of(context).textTheme.headline1?.copyWith(
                     color: Colors.black,
                   ),
@@ -52,7 +53,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
                     },
                     decoration: InputDecoration(
                       label: Text(
-                        'Title',
+                        AppLocalizations.of(context)!.title,
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -77,7 +78,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
                     },
                     decoration: InputDecoration(
                       label: Text(
-                        'Description',
+                        AppLocalizations.of(context)!.description,
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -94,7 +95,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
               height: 5,
             ),
             Text(
-              'Select Date',
+              AppLocalizations.of(context)!.selectDate,
               style: Theme.of(context)
                   .textTheme
                   .subtitle1
@@ -156,7 +157,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
                   );
                 }
               },
-              child: Text('update'),
+              child: Text(AppLocalizations.of(context)!.update,),
             ),
           ],
         ),
