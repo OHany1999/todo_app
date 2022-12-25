@@ -26,9 +26,10 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TodoApp'),
+        title: Text('TodoApp',style: Theme.of(context).textTheme.subtitle1,),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.onPrimary,
         notchMargin: 8,
         shape: CircularNotchedRectangle(),
         child: BottomNavigationBar(
@@ -41,11 +42,12 @@ class _HomeLayoutState extends State<HomeLayout> {
           },
           items: [
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.list,
-                  size: 30,
-                ),
-                label: ''),
+              icon: Icon(
+                Icons.list,
+                size: 30,
+              ),
+              label: '',
+            ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,

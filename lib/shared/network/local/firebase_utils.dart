@@ -49,3 +49,9 @@ Future<void> UpdateTaskFromFireStore(Task task, String id) {
   task.id = docRef.id;
   return getTaskCollection().doc(id).update(task.toJson());
 }
+
+void UpdateIsDoneFormFireStore(Task task,bool isDone,String id,){
+  var docRef = getTaskCollection().doc(id);
+  task.id = docRef.id;
+  getTaskCollection().doc(id).update({'isDone':isDone});
+}

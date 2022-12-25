@@ -42,6 +42,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
               child: Column(
                 children: [
                   TextFormField(
+                    style: TextStyle(color: Colors.blue,),
                     controller: titleController,
                     validator: (text) {
                       if (text!.isEmpty && text != null) {
@@ -65,6 +66,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
                     height: 10.0,
                   ),
                   TextFormField(
+                    style: TextStyle(color: Colors.blue,),
                     maxLines: 4,
                     controller: descriptionController,
                     validator: (text) {

@@ -40,6 +40,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               child: Column(
                 children: [
                   TextFormField(
+                    style: TextStyle(color: Colors.blue,),
                     controller: titleController,
                     validator: (text) {
                       if (text!.isEmpty && text != null) {
@@ -63,6 +64,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     height: 10.0,
                   ),
                   TextFormField(
+                    style: TextStyle(color: Colors.blue,),
                     maxLines: 4,
                     controller: descriptionController,
                     validator: (text) {

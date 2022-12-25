@@ -14,7 +14,7 @@ class MyTheme {
       onSecondary: withoutcolor,
       error: withoutcolor,
       onError: withoutcolor,
-      surface: withoutcolor,
+      surface: white,
       onSurface: withoutcolor,
       background: lightbackground,
       onBackground: withoutcolor,
@@ -26,8 +26,8 @@ class MyTheme {
     ),
     textTheme: TextTheme(
       headline1: TextStyle(
-          fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
-      subtitle1: TextStyle(fontSize: 20, color: appbarcolor),
+          fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
+      subtitle1: TextStyle(fontSize: 20, color: Colors.white),
       subtitle2: TextStyle(fontSize: 20, color: donecolor),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -42,32 +42,35 @@ class MyTheme {
 
   static ThemeData darkTheme = ThemeData(
     primaryColor: appbarcolor,
-    scaffoldBackgroundColor: lightbackground,
+    scaffoldBackgroundColor: darkbackground,
     colorScheme: ColorScheme(
       primary: appbarcolor,
-      onPrimary: black,
+      onPrimary: grey,
       secondary: white,
       onSecondary: withoutcolor,
       error: withoutcolor,
       onError: withoutcolor,
-      surface: withoutcolor,
+      surface: grey,
       onSurface: withoutcolor,
       background: darkbackground,
       onBackground: withoutcolor,
       brightness: Brightness.dark,
     ),
     appBarTheme: AppBarTheme(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        iconTheme: IconThemeData(color: black)),
+        backgroundColor: appbarcolor,
+        iconTheme: IconThemeData(color: white)),
     textTheme: TextTheme(
         headline1: TextStyle(
             fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
-        subtitle1: TextStyle(fontSize: 20, color: Colors.yellow)),
+        subtitle1: TextStyle(fontSize: 20, color: Colors.white)),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: appbarcolor,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: darkbackground,
-        selectedItemColor: white,
-        unselectedItemColor: Colors.white),
+        backgroundColor: grey,
+        selectedItemColor: appbarcolor,
+        unselectedItemColor: Colors.grey.shade400,
+    ),
   );
   
 }
