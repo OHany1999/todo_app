@@ -21,7 +21,8 @@ class MyTheme {
       brightness: Brightness.light,
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: appbarcolor,
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
       iconTheme: IconThemeData(color: white),
     ),
     textTheme: TextTheme(
@@ -57,7 +58,8 @@ class MyTheme {
       brightness: Brightness.dark,
     ),
     appBarTheme: AppBarTheme(
-        backgroundColor: appbarcolor,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
         iconTheme: IconThemeData(color: white)),
     textTheme: TextTheme(
         headline1: TextStyle(

@@ -26,7 +26,8 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.todoApp,style: Theme.of(context).textTheme.subtitle1,),
+        centerTitle: true,
+        title: Text(AppLocalizations.of(context)!.todoApp,style: Theme.of(context).textTheme.headline1,),
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.onPrimary,

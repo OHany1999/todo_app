@@ -7,6 +7,7 @@ import 'package:todo_app/shared/styles/my_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main()async{
@@ -21,11 +22,12 @@ void main()async{
 }
 
 class MyApp extends StatelessWidget {
+  late SettingProvider settingProvider;
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<SettingProvider>(context);
-
+    settingProvider = Provider.of<SettingProvider>(context);
+    getValueFromShared();
     return MaterialApp(
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
         Locale('en'),
         Locale('ar'),
       ],
-      locale: Locale(provider.language),
+      locale: Locale(settingProvider.language),
       initialRoute: HomeLayout.routeName,
       routes: {
         HomeLayout.routeName :(context)=> HomeLayout(),
@@ -45,8 +47,26 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner:false ,
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
-      themeMode: provider.themeMode,
+      themeMode: settingProvider.themeMode,
     );
+  }
+
+  void getValueFromShared()async{
+    final prefs = await SharedPreferences.getInstance();
+
+    //get language from sharedPreference
+    //if null first time make it en 'en'
+    settingProvider.ChangeLanguage(prefs.getString('lang') ?? 'en');
+
+    //get Theme from sharedPreference
+    if(prefs.getString("theme") == "light"){
+      settingProvider.ChangeMode(ThemeMode.light);
+    }else if(prefs.getString("theme")=="dark"){
+      settingProvider.ChangeMode(ThemeMode.dark);
+    }else{
+      settingProvider.ChangeMode(ThemeMode.light);
+    }
+
   }
 }
 
