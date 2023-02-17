@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/modules/settings/settingsScreen.dart';
 import 'package:todo_app/modules/tasks_list/tasks_list.dart';
 import 'package:todo_app/shared/styles/colors.dart';
-
 import '../modules/tasks_list/add_task_bottom_sheet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {
   static const String routeName = 'home';
@@ -26,9 +26,11 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TodoApp'),
+        centerTitle: true,
+        title: Text(AppLocalizations.of(context)!.todoApp,style: Theme.of(context).textTheme.headline1,),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.onPrimary,
         notchMargin: 8,
         shape: CircularNotchedRectangle(),
         child: BottomNavigationBar(
@@ -41,11 +43,12 @@ class _HomeLayoutState extends State<HomeLayout> {
           },
           items: [
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.list,
-                  size: 30,
-                ),
-                label: ''),
+              icon: Icon(
+                Icons.list,
+                size: 30,
+              ),
+              label: '',
+            ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,

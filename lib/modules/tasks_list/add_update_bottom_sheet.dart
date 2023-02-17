@@ -7,12 +7,14 @@ import 'package:todo_app/shared/components/ui_utils.dart';
 import 'package:todo_app/shared/network/local/firebase_utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AddTaskBottomSheet extends StatefulWidget {
+class UpdateBottomSheet extends StatefulWidget {
   @override
-  State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
+  State<UpdateBottomSheet> createState() => _UpdateBottomSheetState();
+  String id;
+  UpdateBottomSheet(this.id);
 }
 
-class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
+class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
   @override
   DateTime selectedDate = DateTime.now();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
@@ -27,7 +29,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              AppLocalizations.of(context)!.addNewTask,
+              AppLocalizations.of(context)!.updateTask,
               style: Theme.of(context).textTheme.headline1?.copyWith(
                     color: Colors.black,
                   ),
@@ -41,9 +43,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               child: Column(
                 children: [
                   TextFormField(
-                    style: TextStyle(
-                      color: Colors.blue,
-                    ),
+                    style: TextStyle(color: Colors.blue,),
                     controller: titleController,
                     validator: (text) {
                       if (text!.isEmpty && text != null) {
@@ -67,9 +67,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     height: 10.0,
                   ),
                   TextFormField(
-                    style: TextStyle(
-                      color: Colors.blue,
-                    ),
+                    style: TextStyle(color: Colors.blue,),
                     maxLines: 4,
                     controller: descriptionController,
                     validator: (text) {
@@ -134,16 +132,18 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               onPressed: () {
                 if (formkey.currentState!.validate()) {
                   showMessage(
-                    'Are you sure ?',
+                    'Are you sure about update',
                     context,
                     'Ok',
                     () {
-                      addTaskToFireStore(Task(
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        date: DateUtils.dateOnly(selectedDate)
-                            .microsecondsSinceEpoch,
-                      )).then((value) {
+                      UpdateTaskFromFireStore(
+                              Task(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  date: DateUtils.dateOnly(selectedDate)
+                                      .microsecondsSinceEpoch),
+                              widget.id)
+                          .then((value) {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       }).catchError((error) {
@@ -157,10 +157,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   );
                 }
               },
-
-              child: Text(
-                AppLocalizations.of(context)!.addTask,
-              ),
+              child: Text(AppLocalizations.of(context)!.update,),
             ),
           ],
         ),
