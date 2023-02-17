@@ -157,6 +157,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   );
                 }
               },
+
               child: Text(
                 AppLocalizations.of(context)!.addTask,
               ),

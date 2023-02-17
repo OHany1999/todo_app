@@ -30,10 +30,7 @@ Future<void> addTaskToFireStore(Task task) {
 }
 
 Stream<QuerySnapshot<Task>> getDataFromFireStore(DateTime dateTime) {
-  var data = getTaskCollection()
-      .where('date',
-          isEqualTo: DateUtils.dateOnly(dateTime).microsecondsSinceEpoch)
-      .snapshots();
+  var data = getTaskCollection().where('date', isEqualTo: DateUtils.dateOnly(dateTime).microsecondsSinceEpoch).snapshots();
   return data;
 }
 

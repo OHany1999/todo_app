@@ -6,10 +6,15 @@ import 'package:todo_app/shared/styles/colors.dart';
 import '../../models/task.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class TaskItem extends StatelessWidget {
+class TaskItem extends StatefulWidget {
   Task task;
   TaskItem(this.task);
 
+  @override
+  State<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     return Slidable(
@@ -19,17 +24,17 @@ class TaskItem extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
-              DeleteTaskFromFireStore(task.id);
+              DeleteTaskFromFireStore(widget.task.id);
             },
             icon: Icons.delete,
             backgroundColor: Colors.red,
             label: AppLocalizations.of(context)!.delete,
             borderRadius: BorderRadius.circular(12),
           ),
-          if (task.isDone != true)
+          if (widget.task.isDone != true)
             SlidableAction(
               onPressed: (context) {
-                showUpdateTaskBottomSheet(context, task.id);
+                showUpdateTaskBottomSheet(context, widget.task.id);
               },
               icon: Icons.edit,
               backgroundColor: Colors.blue,
@@ -50,7 +55,7 @@ class TaskItem extends StatelessWidget {
             Container(
               width: 4,
               height: 80,
-              color: task.isDone?
+              color: widget.task.isDone?
               donecolor
               :Theme.of(context).primaryColor,
             ),
@@ -62,17 +67,17 @@ class TaskItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${task.title}',
+                    '${widget.task.title}',
                     style: Theme.of(context).textTheme.subtitle1?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color:task.isDone? donecolor:appbarcolor,
+                          color:widget.task.isDone? donecolor:appbarcolor,
                         ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    '${task.description}',
+                    '${widget.task.description}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.secondary,
@@ -89,7 +94,7 @@ class TaskItem extends StatelessWidget {
   }
 
   Widget DoneWidget(BuildContext context) {
-    if (task.isDone == true) {
+    if (widget.task.isDone == true) {
       return Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -107,7 +112,7 @@ class TaskItem extends StatelessWidget {
       return InkWell(
         onTap: () {
           bool Done = true;
-          UpdateIsDoneFormFireStore(task, Done, task.id);
+          UpdateIsDoneFormFireStore(widget.task, Done, widget.task.id);
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
